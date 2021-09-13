@@ -42,7 +42,6 @@ router.get('/', function(req, res) {
               // res.status(200).json("crawled!");
               // res.send(crawledCommits);
           }
-          // console.log(data);
 
           // 유저 이미지 가져오기
           $(".js-profile-editable-replace > div > div > a > img.avatar").each(function(){
