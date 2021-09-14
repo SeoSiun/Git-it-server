@@ -29,7 +29,7 @@ const TIER = {
 // 잔디에서 커밋내역 크롤링
 router.get('/userName/:userName/commit', function(req, res) {
   const homeUrl = 'https://github.com/'.concat(req.params.userName);
-  request(homeUrl, function(err, res, html) {
+  request(homeUrl, function(err, _res, html) {
     if(err)
     {
         console.log("error");
@@ -84,18 +84,17 @@ router.get('/userName/:userName/commit', function(req, res) {
 
         console.log(stats);
 
-        return;
+        return res.status(200).json(crawledCommits);
       }
     }  
   })
-  res.send.json(crawledCommits);
 });
 
 
 // 깃허브에서 유저 이미지 url 크롤링
 router.get('/userName/:userName/imageUrl', function(req, res) {
   const homeUrl = 'https://github.com/'.concat(req.params.userName);
-  request(homeUrl, function(err, res, html) {
+  request(homeUrl, function(err, _res, html) {
     if(err)
     {
         console.log("error");
@@ -110,11 +109,10 @@ router.get('/userName/:userName/imageUrl', function(req, res) {
         imageUrl = data['0']['attribs']['src'];
 
         console.log(imageUrl);
-        return;
+        return res.status(200).json(imageUrl);
       });
     }  
   });
-  res.send.json(imageUrl);
 });
 
 module.exports = router;
