@@ -86,9 +86,9 @@ router.get('/userName/:userName/commit', function(req, res) {
 
         return;
       }
-      res.send.json(crawledCommits);
     }  
   })
+  res.send.json(crawledCommits);
 });
 
 
