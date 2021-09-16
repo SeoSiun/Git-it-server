@@ -54,10 +54,10 @@ router.get('/userName/:userName/commit', function(req, res) {
           crawledCommits.push(commit);
 
           // 전체 커밋 수 계산
-          totalCommit += commit['count'];
+          totalCommit += Number(commit['count']);
 
           // 최대 연속 커밋일 수 계산
-          if(commit['count'] <= 0) maxCommitStreak = 0;
+          if(Number(commit['count']) <= 0) maxCommitStreak = 0;
           else maxCommitStreak += 1;
       });
       if(!crawledCommits)
