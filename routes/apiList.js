@@ -12,18 +12,23 @@ router.get("/", function (req, res, next) {
         description: "create a new user",
         method: "post",
       },
-      {
-        name: `${req.headers.host}/api/user`,
-        description: "get all users",
-        method: "get",
-      },
+      // {
+      //   name: `${req.headers.host}/api/user`,
+      //   description: "get all users",
+      //   method: "get",
+      // },
       {
         name: `${req.headers.host}/api/user/:username`,
         description: "get a user by username",
         method: "get",
       },
       {
-        name: `${req.headers.host}/api/user/friends/:username`,
+        name: `${req.headers.host}/api/user/friendsInfo/:username`,
+        description: "get friends info by username",
+        method: "get",
+      },
+      {
+        name: `${req.headers.host}/api/user/commit/:username`,
         description: "get friends by username",
         method: "get",
       },
@@ -37,17 +42,17 @@ router.get("/", function (req, res, next) {
         description: "delete a user by username",
         method: "delete",
       },
-      //commits
-      {
-        name: `${req.headers.host}/api/commits/user/:username`,
-        description: "get commits by username",
-        method: "get",
-      },
-      {
-        name: `${req.headers.host}/api/commits/friends/:username`,
-        description: "get friends' commits by username",
-        method: "get",
-      }
+      // //commits
+      // {
+      //   name: `${req.headers.host}/api/commits/user/:username`,
+      //   description: "get commits by username",
+      //   method: "get",
+      // },
+      // {
+      //   name: `${req.headers.host}/api/commits/friends/:username`,
+      //   description: "get friends' commits by username",
+      //   method: "get",
+      // }
     ],
   });
 });
