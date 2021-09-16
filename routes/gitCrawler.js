@@ -27,8 +27,9 @@ const TIER = {
 }
 
 // 잔디에서 커밋내역 크롤링
-router.get('/userName/:userName/commit', function(req, res) {
-  const homeUrl = 'https://github.com/'.concat(req.params.userName);
+// router.get('/userName/:userName/commit', function(req, res) {
+function getCommitByCrawling(userName) {
+  const homeUrl = 'https://github.com/'.concat(userName);
   request(homeUrl, function(err, _res, html) {
     if(err)
     {
@@ -84,15 +85,23 @@ router.get('/userName/:userName/commit', function(req, res) {
 
         console.log(stats);
 
-        return res.status(200).json(crawledCommits);
+        const result = {
+          crawledCommits: crawledCommits,
+          todayCommit: crawledCommits[crawledCommits.length-1]['count']
+        }
+        return;
+
+        // return res.status(200).json(crawledCommits);
       }
     }  
   })
-});
+  return result;
+};
 
 
 // 깃허브에서 유저 이미지 url 크롤링
-router.get('/userName/:userName/imageUrl', function(req, res) {
+// router.get('/userName/:userName/imageUrl', function(req, res) {
+function getImageUrlByCrawling(userName) {
   const homeUrl = 'https://github.com/'.concat(req.params.userName);
   request(homeUrl, function(err, _res, html) {
     if(err)
@@ -109,10 +118,15 @@ router.get('/userName/:userName/imageUrl', function(req, res) {
         imageUrl = data['0']['attribs']['src'];
 
         console.log(imageUrl);
-        return res.status(200).json(imageUrl);
+        //return res.status(200).json(imageUrl);
+
+        /* TODO */
+        // 데이터베이스에 imageUrl 저장하기
       });
     }  
   });
-});
+  return imageUrl;
+};
 
-module.exports = router;
+// module.exports = router;
+export default GitCrawler;
