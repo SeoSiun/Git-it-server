@@ -1,4 +1,4 @@
-import GitCrawler, {getCommitByCrawling, getImageUrlByCrawling} from './gitCrawler.js';
+var {getCommitByCrawling, getImageUrlByCrawling} = require('./gitCrawler.js');
 
 var express = require('express');
 var router = express.Router();
@@ -45,14 +45,21 @@ router.get('/userName/:userName/friendsInfo', (req, res) => {
   })
 })
 
-// get a user by userName
+// get a user commit by userName
 router.get('/userName/:userName/commit', (req, res) => {
-  const result = GitCrawler.getCommitByCrawling(req.params.userName);
-  return res.status(200).json(result['crawledCommits']);
+  getCommitByCrawling(req.params.userName, function(result){
+    return res.status(200).json(result['crawledCommits']);
+  });
+})
+
+// get a user imageUrl by userName
+router.get('/userName/:userName/imageUrl', (req, res) => {
+  getImageUrlByCrawling(req.params.userName, function(result){
+    return res.status(200).json(result);
+  });
 })
 
 // get totalCommits by userName
-
 router.get('/userName/:userName/stats', (req, res) => {
   const filter = {userName: req.params.userName};
   User.findOne(filter).select('tier totalCommits average streak tier rank').exec((err, stats) => {

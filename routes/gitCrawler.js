@@ -1,8 +1,8 @@
-const axios = require('axios');
+// const axios = require('axios');
 const cheerio = require('cheerio');
 var request = require('request');
-var express = require('express');
-var router = express.Router();
+// var express = require('express');
+// var router = express.Router();
 
 // 아이언, 브론즈, 실버, 골드, 다이아, 마스터, 챌린저
 const TIER = {
@@ -28,13 +28,13 @@ const TIER = {
 
 // 잔디에서 커밋내역 크롤링
 // router.get('/userName/:userName/commit', function(req, res) {
-function getCommitByCrawling(userName) {
+function getCommitByCrawling(userName, callback) {
   const homeUrl = 'https://github.com/'.concat(userName);
   request(homeUrl, function(err, _res, html) {
     if(err)
     {
         console.log("error");
-        res.status = 400;
+        // res.status = 400;
     }
     else{
       const $ = cheerio.load(html);
@@ -75,7 +75,7 @@ function getCommitByCrawling(userName) {
         const stats = {
           tier: TIER.getTier(totalCommit),         // tier by number of commits
           totalCommits: totalCommit,  // commits for a year
-          average: totalCommit/365,   // totalCommits/365
+          average: Math.round(totalCommit/365 * 10) / 10,   // totalCommits/365
           streak: maxCommitStreak,    // consecutive days
 
           /* TODO */
@@ -89,25 +89,23 @@ function getCommitByCrawling(userName) {
           crawledCommits: crawledCommits,
           todayCommit: crawledCommits[crawledCommits.length-1]['count']
         }
-        return;
-
         // return res.status(200).json(crawledCommits);
+        callback(result); 
       }
-    }  
+    } 
   })
-  return result;
 };
 
 
 // 깃허브에서 유저 이미지 url 크롤링
 // router.get('/userName/:userName/imageUrl', function(req, res) {
-function getImageUrlByCrawling(userName) {
-  const homeUrl = 'https://github.com/'.concat(req.params.userName);
+function getImageUrlByCrawling(userName, callback) {
+  const homeUrl = 'https://github.com/'.concat(userName);
   request(homeUrl, function(err, _res, html) {
     if(err)
     {
         console.log("error");
-        res.status = 400;
+        // res.status = 400;
     }
     else{
       const $ = cheerio.load(html);
@@ -118,6 +116,7 @@ function getImageUrlByCrawling(userName) {
         imageUrl = data['0']['attribs']['src'];
 
         console.log(imageUrl);
+        callback(imageUrl);
         //return res.status(200).json(imageUrl);
 
         /* TODO */
@@ -125,8 +124,7 @@ function getImageUrlByCrawling(userName) {
       });
     }  
   });
-  return imageUrl;
 };
 
 // module.exports = router;
-export default GitCrawler;
+module.exports = {getCommitByCrawling, getImageUrlByCrawling};

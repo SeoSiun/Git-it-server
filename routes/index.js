@@ -7,7 +7,7 @@ const GitCrawler = require('./gitCrawler');
 const User = require('./user');
 
 
-router.use('/git-crawler', GitCrawler); //router.use({api url}, {var name})
+// router.use('/git-crawler', GitCrawler); //router.use({api url}, {var name})
 
 router.use('/user', User);
 
