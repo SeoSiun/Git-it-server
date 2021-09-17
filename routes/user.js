@@ -48,6 +48,7 @@ router.get('/userName/:userName/friendsInfo', (req, res) => {
 // get a user by userName
 router.get('/userName/:userName/commit', (req, res) => {
   const result = getCommitByCrawling(req.params.userName);
+  console.log(result['crawledCommits']);
   return res.status(200).json(result['crawledCommits']);
 })
 

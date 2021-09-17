@@ -75,7 +75,7 @@ function getCommitByCrawling(userName) {
         const stats = {
           tier: TIER.getTier(totalCommit),         // tier by number of commits
           totalCommits: totalCommit,  // commits for a year
-          average: totalCommit/365,   // totalCommits/365
+          average: Math.round(totalCommit/365 * 10) / 10,   // totalCommits/365
           streak: maxCommitStreak,    // consecutive days
 
           /* TODO */
