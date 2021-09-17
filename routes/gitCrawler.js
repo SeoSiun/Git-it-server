@@ -28,7 +28,7 @@ const TIER = {
 
 // 잔디에서 커밋내역 크롤링
 // router.get('/userName/:userName/commit', function(req, res) {
-function getCommitByCrawling(userName) {
+function getCommitByCrawling(userName, callback) {
   const homeUrl = 'https://github.com/'.concat(userName);
   request(homeUrl, function(err, _res, html) {
     if(err)
@@ -95,13 +95,13 @@ function getCommitByCrawling(userName) {
       }
     }  
   })
-  return result;
+  callback(result);
 };
 
 
 // 깃허브에서 유저 이미지 url 크롤링
 // router.get('/userName/:userName/imageUrl', function(req, res) {
-function getImageUrlByCrawling(userName) {
+function getImageUrlByCrawling(userName, callback) {
   const homeUrl = 'https://github.com/'.concat(req.params.userName);
   request(homeUrl, function(err, _res, html) {
     if(err)
@@ -125,7 +125,7 @@ function getImageUrlByCrawling(userName) {
       });
     }  
   });
-  return imageUrl;
+  callback(imageUrl);
 };
 
 // module.exports = router;
