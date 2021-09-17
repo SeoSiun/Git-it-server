@@ -89,13 +89,11 @@ function getCommitByCrawling(userName, callback) {
           crawledCommits: crawledCommits,
           todayCommit: crawledCommits[crawledCommits.length-1]['count']
         }
-        return;
-
         // return res.status(200).json(crawledCommits);
       }
-    }  
+    } 
+    callback(result); 
   })
-  callback(result);
 };
 
 
@@ -124,8 +122,8 @@ function getImageUrlByCrawling(userName, callback) {
         // 데이터베이스에 imageUrl 저장하기
       });
     }  
+    callback(imageUrl);
   });
-  callback(imageUrl);
 };
 
 // module.exports = router;
