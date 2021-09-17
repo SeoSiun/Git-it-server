@@ -1,4 +1,4 @@
-import './gitCrawler.js';
+import {getCommitByCrawling, getImageUrlByCrawling} from './gitCrawler.js';
 
 var express = require('express');
 var router = express.Router();
