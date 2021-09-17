@@ -90,9 +90,9 @@ function getCommitByCrawling(userName, callback) {
           todayCommit: crawledCommits[crawledCommits.length-1]['count']
         }
         // return res.status(200).json(crawledCommits);
+        callback(result); 
       }
     } 
-    callback(result); 
   })
 };
 
@@ -116,13 +116,13 @@ function getImageUrlByCrawling(userName, callback) {
         imageUrl = data['0']['attribs']['src'];
 
         console.log(imageUrl);
+        callback(imageUrl);
         //return res.status(200).json(imageUrl);
 
         /* TODO */
         // 데이터베이스에 imageUrl 저장하기
       });
     }  
-    callback(imageUrl);
   });
 };
 
