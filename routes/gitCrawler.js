@@ -129,4 +129,4 @@ function getImageUrlByCrawling(userName) {
 };
 
 // module.exports = router;
-export {getCommitByCrawling, getImageUrlByCrawling};
+module.exports = {getCommitByCrawling, getImageUrlByCrawling};
