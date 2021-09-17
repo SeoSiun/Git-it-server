@@ -1,4 +1,4 @@
-import GitCrawler, {getCommitByCrawling, getImageUrlByCrawling} from './gitCrawler.js';
+import {getCommitByCrawling, getImageUrlByCrawling} from './gitCrawler.js';
 
 var express = require('express');
 var router = express.Router();
@@ -47,7 +47,7 @@ router.get('/userName/:userName/friendsInfo', (req, res) => {
 
 // get a user by userName
 router.get('/userName/:userName/commit', (req, res) => {
-  const result = GitCrawler.getCommitByCrawling(req.params.userName);
+  const result = getCommitByCrawling(req.params.userName);
   return res.status(200).json(result['crawledCommits']);
 })
 

@@ -129,4 +129,4 @@ function getImageUrlByCrawling(userName) {
 };
 
 // module.exports = router;
-export default GitCrawler;
+export {getCommitByCrawling, getImageUrlByCrawling};
