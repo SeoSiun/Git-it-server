@@ -100,7 +100,7 @@ function getCommitByCrawling(userName, callback) {
 // 깃허브에서 유저 이미지 url 크롤링
 // router.get('/userName/:userName/imageUrl', function(req, res) {
 function getImageUrlByCrawling(userName, callback) {
-  const homeUrl = 'https://github.com/'.concat(req.params.userName);
+  const homeUrl = 'https://github.com/'.concat(userName);
   request(homeUrl, function(err, _res, html) {
     if(err)
     {
