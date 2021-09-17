@@ -54,7 +54,7 @@ router.get('/userName/:userName/commit', (req, res) => {
 
 // get a user imageUrl by userName
 router.get('/userName/:userName/imageUrl', (req, res) => {
-  getCommitByCrawling(req.params.userName, function(result){
+  getImageUrlByCrawling(req.params.userName, function(result){
     return res.status(200).json(result);
   });
 })
