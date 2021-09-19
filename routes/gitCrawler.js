@@ -86,7 +86,12 @@ function getCommitByCrawling(userName, callback) {
 
         console.log(stats);
 
-        User.updateOne({ userName: userName }, { $set: { stats } });
+        User.updateOne({ userName: userName }, { $set: { 
+          tier: TIER.getTier(totalCommit),         // tier by number of commits
+          totalCommits: totalCommit,  // commits for a year
+          average: Math.round(totalCommit/365 * 10) / 10,   // totalCommits/365
+          streak: maxCommitStreak,    // consecutive days
+         } });
 
         const result = {
           crawledCommits: crawledCommits,
