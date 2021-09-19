@@ -29,7 +29,12 @@ router.get("/", function (req, res, next) {
       },
       {
         name: `${req.headers.host}/api/user/commit/:username`,
-        description: "get friends by username",
+        description: "get commit info by username",
+        method: "get",
+      },
+      {
+        name: `${req.headers.host}/api/user/imageUrl/:username`,
+        description: "get imagerUrl by username",
         method: "get",
       },
       {
