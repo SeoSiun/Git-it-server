@@ -1,8 +1,9 @@
 // const axios = require('axios');
-const cheerio = require('cheerio');
-var request = require('request');
 // var express = require('express');
 // var router = express.Router();
+const cheerio = require('cheerio');
+var request = require('request');
+const User = require('../models/user.js');
 
 // 아이언, 브론즈, 실버, 골드, 다이아, 마스터, 챌린저
 const TIER = {
@@ -84,6 +85,8 @@ function getCommitByCrawling(userName, callback) {
         }
 
         console.log(stats);
+
+        User.updateOne({ userName: userName }, { $set: { stats } });
 
         const result = {
           crawledCommits: crawledCommits,
