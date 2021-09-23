@@ -59,6 +59,7 @@ function getCommitByCrawling(userName, callback) {
       });
       if(!crawledCommits)
       {
+        // 여기서 거르기 (없는 사람인 경우)
           res.status(404).json("not found");
       }
       else 
