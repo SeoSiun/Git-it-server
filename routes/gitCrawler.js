@@ -98,6 +98,8 @@ function getImageUrlByCrawling(userName, callback) {
 
         imageUrl = data['0']['attribs']['src'];
 
+        User.updateOne({ userName: userName }, { $set: { imageUrl: imageUrl }}).exec();
+
         console.log(imageUrl);
         callback(imageUrl);
       });
