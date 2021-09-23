@@ -8,56 +8,39 @@ router.get("/", function (req, res, next) {
     apilist: [
       // user
       {
-        name: `${req.headers.host}/api/user`,
+        name: `${req.headers.host}/api/user/create`,
         description: "create a new user",
         method: "post",
       },
-      // {
-      //   name: `${req.headers.host}/api/user`,
-      //   description: "get all users",
-      //   method: "get",
-      // },
       {
         name: `${req.headers.host}/api/user/:username`,
-        description: "get a user by username",
+        description: "get a user info by username",
         method: "get",
       },
       {
-        name: `${req.headers.host}/api/user/friendsInfo/:username`,
-        description: "get friends info by username",
+        name: `${req.headers.host}/api/user/:friendName/friend`,
+        description: "get friend info by friendname",
         method: "get",
       },
       {
-        name: `${req.headers.host}/api/user/commit/:username`,
+        name: `${req.headers.host}/api/user/:username/stats`,
         description: "get commit info by username",
         method: "get",
       },
       {
-        name: `${req.headers.host}/api/user/imageUrl/:username`,
-        description: "get imagerUrl by username",
-        method: "get",
-      },
-      {
-        name: `${req.headers.host}/api/user/:username`,
-        description: "update user by username",
+        name: `${req.headers.host}/api/user/:username/addFriend/:friendName`,
+        description: "add friend to user",
+        method: "put",
+      },{
+        name: `${req.headers.host}/api/user/:username/deleteFriend/:friendName`,
+        description: "delete friend to user",
         method: "put",
       },
       {
-        name: `${req.headers.host}/api/user/:username`,
+        name: `${req.headers.host}/api/user/:username/delete`,
         description: "delete a user by username",
         method: "delete",
       },
-      // //commits
-      // {
-      //   name: `${req.headers.host}/api/commits/user/:username`,
-      //   description: "get commits by username",
-      //   method: "get",
-      // },
-      // {
-      //   name: `${req.headers.host}/api/commits/friends/:username`,
-      //   description: "get friends' commits by username",
-      //   method: "get",
-      // }
     ],
   });
 });

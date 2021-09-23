@@ -5,19 +5,6 @@ var router = express.Router();
 
 const User = require('../models/user.js');
 
-// get all users
-// router.get('/', (req, res) => {
-//   const filter = {};
-//   User.find(filter, (err, userList) => {
-//     if(err) res.status(400).json({msg: `get all users error`});
-//     if(!userList) res.status(404).json({msg: `users not found`});
-//     else {
-//       console.log('find userList 성공');
-//       return res.status(200).json({userList});
-//     }
-//   })
-// })
-
 // get a user by userName
 router.get('/:userName', (req, res) => {
   const filter = {userName: req.params.userName};
@@ -45,18 +32,9 @@ router.get('/:userName/friendsInfo/', (req, res) => {
   })
 })
 
-// get a user commit by userName
-// friend + totalCommit 추가하기
-// 크롤링한걸 디비에 저장하면 안됨.
-router.get('/:userName/friend', (req, res) => {
-  getCommitByCrawling(req.params.userName, function(result){
-    return res.status(200).json(result['crawledCommits']);
-  });
-})
-
-// get a user imageUrl by userName
-router.get('/:userName/imageUrl', (req, res) => {
-  getImageUrlByCrawling(req.params.userName, function(result){
+// get a friendsInfo by friendName
+router.get('/:friendName/friend', (req, res) => {
+  getCommitByCrawling(req.params.friendName, function(result){
     return res.status(200).json(result);
   });
 })
