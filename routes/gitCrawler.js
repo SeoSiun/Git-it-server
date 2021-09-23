@@ -91,9 +91,10 @@ function getCommitByCrawling(userName, callback) {
           totalCommits: totalCommit,  // commits for a year
           average: Math.round(totalCommit/365 * 10) / 10,   // totalCommits/365
           streak: maxCommitStreak,    // consecutive days
-         } });
+         } }).exec();
 
         const result = {
+       //   stats,
           crawledCommits: crawledCommits,
           todayCommit: crawledCommits[crawledCommits.length-1]['count']
         }
