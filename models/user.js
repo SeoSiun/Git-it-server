@@ -7,7 +7,7 @@ const user = new Schema({
   school: String, // school
   friends: [{type: String, ref: this}],
   // statsId: {type: Schema.Types.ObjectId, ref: 'Stats'},
-  image: { data: Buffer, contentType: String}, // profile image
+  imageUrl: String, // profile image
   tier: String, // tier by number of commits
   totalCommits: Number, // commits for a year
   average: Number,  // totalCommits/365
