@@ -73,28 +73,27 @@ function getCommitByCrawling(userName, callback) {
         
         /* TODO */
         // 데이터베이스에 stats 저장하기
-        const stats = {
-          tier: TIER.getTier(totalCommit),         // tier by number of commits
-          totalCommits: totalCommit,  // commits for a year
-          average: Math.round(totalCommit/365 * 10) / 10,   // totalCommits/365
-          streak: maxCommitStreak,    // consecutive days
+        // const stats = {
+        //   tier: TIER.getTier(totalCommit),         // tier by number of commits
+        //   totalCommits: totalCommit,  // commits for a year
+        //   average: Math.round(totalCommit/365 * 10) / 10,   // totalCommits/365
+        //   streak: maxCommitStreak,    // consecutive days
 
-          /* TODO */
-          // 이걸 여기서 어떻게 알아내지?
-          // rank: "",                 // rank of shcool 
-        }
+        //   /* TODO */
+        //   // 이걸 여기서 어떻게 알아내지?
+        //   // rank: "",                 // rank of shcool 
+        // }
 
-        console.log(stats);
+        // console.log(stats);
 
         User.updateOne({ userName: userName }, { $set: { 
           tier: TIER.getTier(totalCommit),         // tier by number of commits
           totalCommits: totalCommit,  // commits for a year
           average: Math.round(totalCommit/365 * 10) / 10,   // totalCommits/365
           streak: maxCommitStreak,    // consecutive days
-         } }).exec();
+         }}).exec();
 
         const result = {
-       //   stats,
           crawledCommits: crawledCommits,
           todayCommit: crawledCommits[crawledCommits.length-1]['count']
         }
