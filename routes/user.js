@@ -77,17 +77,19 @@ router.get('/:userName/stats', (req, res) => {
 /* -------------------- Update Api -------------------- */
 
 // update friends by userName
-router.get('/userName/:userName/friends', (req, res) => {
-  // const id = req.params.userName.$oid;
+router.put('api/user/:userName/addFriend/:friendName', (req, res) => {
   const filter = {userName: req.params.userName};
-  User.find(filter).select('friends').exec((err, friendList) => {
-    if(err) res.status(400).json({msg: `get friends error`});
-    if(!friendList) res.status(404).json({msg: `freind not found`});
-    else {
-      console.log('getFreinds by userName 성공');
-      return res.status(200).json({friendList});
-    }
-  })
+  const friend = {name: req.params.friendName}
+  User.findOneAndUpdate(
+    {userName: req.params.userName}, 
+    {$push: {friends : friend}},
+    function (error, success) {
+      if(error) {
+        console.log(error);
+      } else {
+        console.log(success);
+      }
+    }).exec()
 })
 
 module.exports = router;
