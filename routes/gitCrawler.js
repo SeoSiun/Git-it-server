@@ -58,7 +58,7 @@ function getCommitByCrawling(userName, callback) {
           if(Number(commit['count']) <= 0) maxCommitStreak = 0;
           else maxCommitStreak += 1;
       });
-      if(!crawledCommits)
+      if(crawledCommits.length===0)
       {
         callback(null);
       }
