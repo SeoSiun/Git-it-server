@@ -1,4 +1,4 @@
-var {getCommitByCrawling, getImageUrlByCrawling} = require('./gitCrawler.js');
+var {getCommitByCrawling} = require('./gitCrawler.js');
 
 var express = require('express');
 var router = express.Router();
@@ -8,12 +8,24 @@ const User = require('../models/user.js');
 // get a user by userName
 router.get('/:userName', (req, res) => {
   const filter = {userName: req.params.userName};
-  User.findOne(filter, (err, user) => {
-    if(err) res.status(500).json({error: `db failure`});
-    if(!user) res.status(404).json({msg: `user not found`});
-    else {
-      console.log('findOne by userName 성공');
-      return res.status(200).json(user);
+  getCommitByCrawling(req.params.userName, function(result){
+    if(result===null) res.status(404).json({msg: `user not found in gitHub`});
+    else{
+      User.findOne(filter, (err, user) => {
+        if(err) res.status(500).json({error: `db failure`});
+        else if(!user) res.status(404).json({msg: `user not found`});
+        else {
+          console.log("get User by userName 성공");
+
+          return res.status(200).json({
+            userName: userName,
+            commitsRecord: result["crawledCommits"],
+            profileImageUrl: user["imageUrl"],
+            streak: user["streak"],
+            friendList: user["friends"]
+          });
+        }
+      });
     }
   })
 })
