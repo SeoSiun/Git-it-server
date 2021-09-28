@@ -18,7 +18,7 @@ router.get('/:userName', (req, res) => {
           console.log("get User by userName 성공");
 
           return res.status(200).json({
-            userName: userName,
+            userName: req.params.userName,
             commitsRecord: result["crawledCommits"],
             profileImageUrl: user["imageUrl"],
             streak: user["streak"],
