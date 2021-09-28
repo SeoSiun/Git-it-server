@@ -2,6 +2,7 @@ var {getCommitByCrawling, getImageUrlByCrawling} = require('./gitCrawler.js');
 
 var express = require('express');
 var router = express.Router();
+var app = express();
 
 const User = require('../models/user.js');
 
@@ -77,12 +78,12 @@ router.get('/:userName/stats', (req, res) => {
 /* -------------------- Update Api -------------------- */
 
 // update friends by userName
-router.put('api/user/:userName/addFriend/:friendName', (req, res) => {
-  const filter = {userName: req.params.userName};
-  const friend = {name: req.params.friendName}
+app.get('api/user/addFriend', (req, res) => {
+  const name = res.send(userName);            // body로 받은 userName을 저장
+  const fName = res.send(friendName);    // body로 받은 friendName을 저장
   User.findOneAndUpdate(
-    {userName: req.params.userName}, 
-    {$push: {friends : friend}},
+    {userName: name},                         // 이름이 name인 사람을 찾아서
+    {$push: {friends : fName}},          // friendName을 friends 배열에 추가해라
     function (error, success) {
       if(error) {
         console.log(error);
