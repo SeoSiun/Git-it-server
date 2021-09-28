@@ -25,7 +25,7 @@ const TIER = {
 }
 
 // 잔디 커밋내역, 유저 이미지 url 크롤링
-function getCommitByCrawling(userName, res, callback) {
+function getCommitByCrawling(userName, callback) {
   const homeUrl = 'https://github.com/'.concat(userName);
   request(homeUrl, function(err, _res, html) {
     if(err)
