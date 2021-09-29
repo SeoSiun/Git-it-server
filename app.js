@@ -29,7 +29,7 @@ db.once('open', function(){
     console.log("Connected to mongod server");
 });
 // 실제로 연결되는 곳.
-mongoose.connect(url, function(err){
+mongoose.connect(url, {useNewUrlParser: true}, function(err){
     if(err) {
         console.log('Unable to connect to the mongoDB server.error', err);
     }
