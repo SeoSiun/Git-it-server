@@ -1,4 +1,4 @@
-var {getCommitByCrawling} = require('./gitCrawler.js');
+var {getCommitByCrawling, isUserInGithub} = require('./gitCrawler.js');
 
 var express = require('express');
 var router = express.Router();
@@ -62,6 +62,26 @@ router.get('/:userName/stats', (req, res) => {
       return res.status(200).json(stats);
     }
   })
+})
+
+router.post('/', (req, res) => {
+  isUserInGithub(req.body.userName, function(isExist){
+    if(isExist){
+      User.insert({userName: req.body.userName}).exec((err, user) => {
+        if(err) res.status(500).json({error: `db failure`});
+        else {
+          getCommitByCrawling(req.body.userName, function(result){
+            if(result === null) res.status(404).json({msg: `user not found in gitHub`});
+          });
+          console.log('add user 성공');
+          return res.status(200).json(user);
+        }
+      })
+    }
+    else{
+      res.status(404).json({msg: `user not found in gitHub`});
+    }
+  });
 })
 
 /* -------------------- Update Api -------------------- */

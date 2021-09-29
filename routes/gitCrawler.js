@@ -92,5 +92,24 @@ function getCommitByCrawling(userName, callback) {
   })
 };
 
+function isUserInGithub(userName, callback){
+  const homeUrl = 'https://github.com/'.concat(userName);
+  request(homeUrl, function(err, _res, html) {
+    if(err)
+    {
+        console.log("error");
+    }
+    else{
+      const $ = cheerio.load(html);
 
-module.exports = {getCommitByCrawling};
+      $(".js-profile-editable-replace > div > div > a > img.avatar").each(function(){
+        callback(true);
+        return;
+      });
+    }
+    callback(false);
+  });
+}
+
+
+module.exports = {getCommitByCrawling, isUserInGithub};
