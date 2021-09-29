@@ -67,15 +67,15 @@ router.get('/:userName/stats', (req, res) => {
 router.post('/', (req, res) => {
   isUserInGithub(req.body.userName, function(isExist){
     if(isExist){
-      var user = new User();
       User.insertMany({userName: req.body.userName}, (err, user) => {
         if(err) res.status(500).json({error: `db failure`});
         else {
-          getCommitByCrawling(req.body.userName, function(result){
-            if(result === null) return res.status(404).json({msg: `user not found in gitHub`});
-            console.log('add user 성공');
-            return res.status(200).json({result: 1});
-          });
+          // getCommitByCrawling(req.body.userName, function(result){
+          //   // if(result === null) return res.status(404).json({msg: `user not found in gitHub!!!`});
+          //   console.log('add user 성공');
+          //   return res.status(200).json({result: 1});
+          // });
+          return res.status(200).json({result: 1});
         }
       })
     }
