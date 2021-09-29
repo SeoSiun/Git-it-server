@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const user = new Schema({
   userName: {type: String, unique: true, required: true}, // user name
   school: String, // school
-  friends: [{type: String, ref: this}],
+  friends: [String],
   // statsId: {type: Schema.Types.ObjectId, ref: 'Stats'},
   imageUrl: String, // profile image
   tier: String, // tier by number of commits
