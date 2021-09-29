@@ -80,7 +80,7 @@ router.post('/', (req, res) => {
       })
     }
     else{
-      res.status(404).json({msg: `user not found in gitHub`});
+      return res.status(404).json({msg: `user not found in gitHub`});
     }
   });
 })
