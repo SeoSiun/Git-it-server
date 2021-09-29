@@ -67,7 +67,7 @@ router.get('/:userName/stats', (req, res) => {
 router.post('/', (req, res) => {
   isUserInGithub(req.body.userName, function(isExist){
     if(isExist){
-      User.insert({userName: req.body.userName}).exec((err, user) => {
+      User.insertMany({userName: req.body.userName}).exec((err, user) => {
         if(err) res.status(500).json({error: `db failure`});
         else {
           getCommitByCrawling(req.body.userName, function(result){
