@@ -5,12 +5,12 @@ var router = express.Router();
 
 const User = require('../models/user.js');
 
-// get a friendsInfo by friendName
-router.get('/:friendName/friend', (req, res) => {
-  getCommitByCrawling(req.params.friendName, function(result){
-    return res.status(200).json(result);
-  });
-})
+// // get a friendsInfo by friendName
+// router.get('/:friendName/friend', (req, res) => {
+//   getCommitByCrawling(req.params.friendName, function(result){
+//     return res.status(200).json(result);
+//   });
+// })
 
 router.get('github/:userName', (req, res) => {
   isUserInGithub(req.params.userName, function(result){
