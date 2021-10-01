@@ -78,17 +78,19 @@ router.get('/:userName/stats', (req, res) => {
 /* -------------------- Update Api -------------------- */
 
 // update friends by userName
-app.get('api/user/addFriend', (req, res) => {
-  const name = res.send(userName);            // body로 받은 userName을 저장
-  const fName = res.send(friendName);    // body로 받은 friendName을 저장
-  User.findOneAndUpdate(
-    {userName: name},                         // 이름이 name인 사람을 찾아서
-    {$push: {friends : fName}},          // friendName을 friends 배열에 추가해라
+router.put('/friend/add', (req, res) => {
+  const name = req.body.userName;            // body로 받은 userName을 저장
+  const fName = req.body.friendName;    // body로 받은 friendName을 저장
+  User.updateOne(
+    {userName: name},                         // 이름이 name인 사람을 찾아서햐
+    {$push: {friends: fName}},          // friendName을 friends 배열에 추가해라
     function (error, success) {
       if(error) {
         console.log(error);
+        return res.status(400).json("0");
       } else {
         console.log(success);
+        return res.status(200).json("1");
       }
     }).exec()
 })
