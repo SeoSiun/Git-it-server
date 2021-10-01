@@ -1,4 +1,4 @@
-var {getCommitByCrawling} = require('./gitCrawler.js');
+var {getCommitByCrawling, isUserInGithub} = require('./gitCrawler.js');
 
 var express = require('express');
 var router = express.Router();
@@ -62,6 +62,18 @@ router.get('/:userName/stats', (req, res) => {
       return res.status(200).json(stats);
     }
   })
+})
+
+router.post('/', (req, res) => {
+  User.insertMany({userName: req.body.userName}, (err, user) => {
+    if(err) res.status(200).json({result: 0});
+    else {
+      console.log('add user 성공');
+
+      res.status(200).json({result: 1});
+      getCommitByCrawling(req.body.userName, function(result){});
+    }
+  });
 })
 
 /* -------------------- Update Api -------------------- */

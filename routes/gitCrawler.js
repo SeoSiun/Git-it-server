@@ -58,20 +58,17 @@ function getCommitByCrawling(userName, callback) {
           if(Number(commit['count']) <= 0) maxCommitStreak = 0;
           else maxCommitStreak += 1;
       });
-      if(!crawledCommits)
+      if(crawledCommits.length===0)
       {
         callback(null);
       }
       else 
       {
-        console.log(crawledCommits);
-
         $(".js-profile-editable-replace > div > div > a > img.avatar").each(function(){
           data = $(this);
   
           imageUrl = data['0']['attribs']['src'];
   
-          console.log(imageUrl);
         });
 
         User.updateOne({ userName: userName }, { $set: { 
@@ -92,5 +89,24 @@ function getCommitByCrawling(userName, callback) {
   })
 };
 
+function isUserInGithub(userName, callback){
+  const homeUrl = 'https://github.com/'.concat(userName);
+  request(homeUrl, function(err, _res, html) {
+    var isExist = false;
+    if(err)
+    {
+        console.log("error");
+    }
+    else{
+      const $ = cheerio.load(html);
 
-module.exports = {getCommitByCrawling};
+      $(".js-profile-editable-replace > div > div > a > img.avatar").each(function(){
+        isExist=true;
+      });
+    }
+    callback(isExist);
+  });
+}
+
+
+module.exports = {getCommitByCrawling, isUserInGithub};
