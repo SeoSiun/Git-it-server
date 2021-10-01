@@ -64,14 +64,11 @@ function getCommitByCrawling(userName, callback) {
       }
       else 
       {
-        console.log(crawledCommits);
-
         $(".js-profile-editable-replace > div > div > a > img.avatar").each(function(){
           data = $(this);
   
           imageUrl = data['0']['attribs']['src'];
   
-          console.log(imageUrl);
         });
 
         User.updateOne({ userName: userName }, { $set: { 
