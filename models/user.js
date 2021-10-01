@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const user = new Schema({
   userName: {type: String, unique: true, required: true}, // user name
   school: String, // school
-  friends: [String],
+  friends: [String], // friends list -> 그냥 이름만 string array로 저장
   // statsId: {type: Schema.Types.ObjectId, ref: 'Stats'},
   imageUrl: String, // profile image
   tier: String, // tier by number of commits
