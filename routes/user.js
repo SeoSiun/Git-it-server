@@ -20,7 +20,7 @@ router.get('/:userName', (req, res) => {
           return res.status(200).json({
             validation: 1,
             userName: req.params.userName,
-            commitsRecord: result["crawledCommits"],
+            commitsRecord: result["commitsRecord"],
             profileImageUrl: user["imageUrl"],
             streak: user["streak"],
             friendList: user["friends"]

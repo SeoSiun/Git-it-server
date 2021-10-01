@@ -46,16 +46,16 @@ function getCommitByCrawling(userName, callback) {
           data = $(this);
 
           commit['date'] = data['0']['attribs']['data-date'];
-          commit['count'] = data['0']['attribs']['data-count'];
-          commit['color'] = data['0']['attribs']['data-level'];
+          commit['count'] = Number(data['0']['attribs']['data-count']);
+          commit['color'] = Number(data['0']['attribs']['data-level']);
 
           crawledCommits.push(commit);
 
           // 전체 커밋 수 계산
-          totalCommit += Number(commit['count']);
+          totalCommit += commit['count'];
 
           // 최대 연속 커밋일 수 계산
-          if(Number(commit['count']) <= 0) maxCommitStreak = 0;
+          if(commit['count'] <= 0) maxCommitStreak = 0;
           else maxCommitStreak += 1;
       });
       if(crawledCommits.length===0)
