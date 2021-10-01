@@ -2,9 +2,10 @@ const express = require('express');
 
 const router = express.Router();
 
-const GitCrawler = require('./gitCrawler'); 
-
 const User = require('./user');
+
+const {getCommitByCrawling} = require('./gitCrawler.js');
+
 
 
 // router.use('/git-crawler', GitCrawler); //router.use({api url}, {var name})
