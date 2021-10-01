@@ -92,7 +92,7 @@ function getCommitByCrawling(userName, callback) {
 function isUserInGithub(userName, callback){
   const homeUrl = 'https://github.com/'.concat(userName);
   request(homeUrl, function(err, _res, html) {
-    var isExist = false;
+    var isExist = 0;
     if(err)
     {
         console.log("error");
@@ -101,7 +101,7 @@ function isUserInGithub(userName, callback){
       const $ = cheerio.load(html);
 
       $(".js-profile-editable-replace > div > div > a > img.avatar").each(function(){
-        isExist=true;
+        isExist=1;
       });
     }
     callback(isExist);

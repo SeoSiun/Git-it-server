@@ -31,20 +31,6 @@ router.get('/:userName', (req, res) => {
   })
 })
 
-// get friends by userName
-router.get('/:userName/friendsInfo/', (req, res) => {
-  // const id = req.params.userName.$oid;
-  const filter = {userName: req.params.userName};
-  User.find(filter).select('friends').exec((err, friendList) => {
-    if(err) res.status(400).json({msg: `get friends error`});
-    if(!friendList) res.status(404).json({msg: `freind not found`});
-    else {
-      console.log('getFreinds by userName 성공');
-      return res.status(200).json({friendList});
-    }
-  })
-})
-
 // get a friendsInfo by friendName
 router.get('/:friendName/friend', (req, res) => {
   getCommitByCrawling(req.params.friendName, function(result){
@@ -52,8 +38,14 @@ router.get('/:friendName/friend', (req, res) => {
   });
 })
 
+router.get('github/:userName', (req, res) => {
+  isUserInGithub(req.params.userName, function(result){
+    return res.status(200).json({result: result});
+  })
+})
+
 // get totalCommits by userName
-router.get('/:userName/stats', (req, res) => {
+router.get('stats/:userName', (req, res) => {
   const filter = {userName: req.params.userName};
   User.findOne(filter).select('tier totalCommits average streak tier rank').exec((err, stats) => {
     if(err) res.status(500).json({error: `db failure`});
