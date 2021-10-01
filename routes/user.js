@@ -9,15 +9,16 @@ const User = require('../models/user.js');
 router.get('/:userName', (req, res) => {
   const filter = {userName: req.params.userName};
   getCommitByCrawling(req.params.userName, function(result){
-    if(result===null) res.status(404).json({msg: `user not found in gitHub`});
+    if(result===null) res.status(200).json({validation: 3});
     else{
       User.findOne(filter, (err, user) => {
-        if(err) res.status(500).json({error: `db failure`});
-        else if(!user) res.status(404).json({msg: `user not found`});
+        if(err) res.status(200).json({validation: 0});
+        else if(!user) res.status(200).json({validation: 2});
         else {
           console.log("get User by userName 성공");
 
           return res.status(200).json({
+            validation: 1,
             userName: req.params.userName,
             commitsRecord: result["crawledCommits"],
             profileImageUrl: user["imageUrl"],
