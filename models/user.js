@@ -13,7 +13,7 @@ const user = new Schema({
   average: Number,  // totalCommits/365
   streak: Number, // consecutive days
   rank: Number, // rank of shcool
-});
+},{versionKey: false});
 
 module.exports = mongoose.model('User', user);
 
