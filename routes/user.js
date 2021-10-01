@@ -73,6 +73,7 @@ router.put('/friend/add', (req, res) => {
   User.updateOne(
     {userName: name},                         // 이름이 name인 사람을 찾아서햐
     {$push: {friends: fName}},          // friendName을 friends 배열에 추가해라
+    // TODO: 이미 있는 fName이면 error
     function (error, success) {
       if(error) {
         console.log(error);
@@ -89,7 +90,9 @@ router.put('/friend/delete', (req, res) => {
   const fName = req.body.friendName;    // body로 받은 friendName을 저장
   User.updateOne(
     {userName: name},                         // 이름이 name인 사람을 찾아서햐
-    {$pull: {friends: fName}},          // friendName을 friends 배열에 추가해라
+    {$pull: {friends: fName}},          // friendName을 friends 배열에서 삭제하라
+    //TODO: 없는 fName이면 error
+    // 밑에 줄은 왜 쓰는지 모르겠음 지워도 됨
     {multi: "true"},
     function (error, success) {
       if(error) {
