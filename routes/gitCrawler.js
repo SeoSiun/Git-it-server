@@ -80,7 +80,8 @@ function getCommitByCrawling(userName, callback) {
          }}).exec();
 
         const result = {
-          crawledCommits: crawledCommits,
+          userName: userName,
+          commitsRecord: crawledCommits,
           totalCommits: totalCommit
         }
         callback(result); 

@@ -31,13 +31,6 @@ router.get('/:userName', (req, res) => {
   })
 })
 
-// // get a friendsInfo by friendName
-// router.get('/:friendName/friend', (req, res) => {
-//   getCommitByCrawling(req.params.friendName, function(result){
-//     return res.status(200).json(result);
-//   });
-// })
-
 router.get('/github/:userName', (req, res) => {
   isUserInGithub(req.params.userName, function(result){
     return res.status(200).json({result: result});
@@ -63,8 +56,9 @@ router.post('/', (req, res) => {
     else {
       console.log('add user 성공');
 
-      res.status(200).json({result: 1});
       getCommitByCrawling(req.body.userName, function(result){});
+
+      return res.status(200).json({result: 1});
     }
   });
 })

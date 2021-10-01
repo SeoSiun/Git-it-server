@@ -11,6 +11,13 @@ const User = require('./user');
 
 router.use('/user', User);
 
+// get a friendsInfo by friendName
+router.get('/commit/:userName', (req, res) => {
+  getCommitByCrawling(req.params.userName, function(result){
+    return res.status(200).json(result);
+  });
+})
+
 router.get('/', function(req, res, next) {
     res.send('hello world!')
 });
