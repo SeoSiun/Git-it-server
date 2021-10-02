@@ -64,6 +64,17 @@ router.post('/', (req, res) => {
   });
 })
 
+router.delete('/:userName', (req, res) => {
+  User.deleteOne({userName: req.params.userName}, (err, user) => {
+    if(err) res.status(200).json({result: 0});
+    else {
+      console.log('delete user 성공');
+
+      return res.status(200).json({result: 1});
+    }
+  })
+})
+
 /* -------------------- Update Api -------------------- */
 
 // update friend by json
