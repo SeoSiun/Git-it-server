@@ -65,12 +65,11 @@ router.post('/', (req, res) => {
 })
 
 router.delete('/:userName', (req, res) => {
-  User.deleteOne({userName: req.params.userName}, (err, user) => {
+  User.deleteOne({userName: req.params.userName}, (err, d) => {
     if(err) res.status(200).json({result: 0});
     else {
-      console.log('delete user 성공');
-
-      return res.status(200).json({result: 1});
+      if(d.deletedCount === 1) return res.status(200).json({result: 1});
+      else return res.status(200).json({result: 0});
     }
   })
 })
