@@ -71,6 +71,16 @@ router.post('/', (req, res) => {
   });
 })
 
+router.delete('/:userName', (req, res) => {
+  User.deleteOne({userName: req.params.userName}, (err, d) => {
+    if(err) res.status(200).json({result: 0});
+    else {
+      if(d.deletedCount === 1) return res.status(200).json({result: 1});
+      else return res.status(200).json({result: 0});
+    }
+  })
+})
+
 /* -------------------- Update Api -------------------- */
 
 // update friend by json
