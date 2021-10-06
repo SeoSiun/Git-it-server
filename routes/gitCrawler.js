@@ -42,12 +42,13 @@ function getCommitByCrawling(userName, callback) {
       var imageUrl;
 
       $(".js-calendar-graph > svg > g > g > rect.ContributionCalendar-day").each(function(){
-          commit = { 'date': '', 'count': 0, 'color': 0 };
           data = $(this);
-
-          commit['date'] = data['0']['attribs']['data-date'];
-          commit['count'] = Number(data['0']['attribs']['data-count']);
-          commit['color'] = Number(data['0']['attribs']['data-level']);
+          
+          commit = { 
+            date: data['0']['attribs']['data-date'],
+            count: Number(data['0']['attribs']['data-count']), 
+            level: Number(data['0']['attribs']['data-level'])
+          };
 
           crawledCommits.push(commit);
 
