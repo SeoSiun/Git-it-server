@@ -98,7 +98,7 @@ router.put('/friend/add', (req, res) => {
         console.log(success);
         return res.status(200).json({"result": 1});
       }
-    }).exec()
+    })
 })
 
 // delete friend with json
@@ -116,7 +116,7 @@ router.put('/friend/delete', (req, res) => {
         console.log(success);
         return res.status(200).json({"result": 1});
       }
-    }).exec()
+    })
 })
 
 module.exports = router;
