@@ -24,7 +24,6 @@ function updateUsers(){
           // user["school"]에 따라 해당하는 school에 result["totalommit"]을 더해주기.
         })
       });
-      }
     }
   })
 }
