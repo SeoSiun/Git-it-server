@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const router = require('./routes');
 
 var getCommitByCrawling = require('./routes/gitCrawler.js')
-const User = require('../models/user.js');
+const User = require('./models/user.js');
 
 // get all users
 function getAllUsers() {
