@@ -5,11 +5,19 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const router = require('./routes');
 
-var getAllUsers = require('./routes/user.js');
 var getCommitByCrawling = require('./routes/gitCrawler.js')
+const User = require('../models/user.js');
 
+// get all users
+function getAllUsers() {
+  User.find({},(err, users) =>{
+    if(err) return null;
+    else return users;
+  })
+}
+
+// update all users
 function updateUsers(users){
-
   for(var user in users){
     getCommitByCrawling(user["userName"],function(result){
       // user["school"]에 따라 해당하는 school에 result["totalommit"]을 더해주기.
