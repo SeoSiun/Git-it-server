@@ -10,7 +10,7 @@ const User = require('./models/user.js');
 
 // update all users
 function updateUsers(){
-  print("call updateUsers()");
+  console.log("call updateUsers()");
   User.find({},(err, users) =>{
     if(err) return null;
     else{
