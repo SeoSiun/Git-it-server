@@ -5,11 +5,12 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const router = require('./routes');
 
-var getCommitByCrawling = require('./routes/gitCrawler.js')
+var {getCommitByCrawling} = require('./routes/gitCrawler.js')
 const User = require('./models/user.js');
 
 // update all users
 function updateUsers(){
+  print("call updateUsers()");
   User.find({},(err, users) =>{
     if(err) return null;
     else{
