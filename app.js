@@ -9,9 +9,10 @@ var getAllUsers = require('./routes/user.js');
 var getCommitByCrawling = require('./routes/gitCrawler.js')
 
 function updateUsers(users){
+
   for(var user in users){
-    getCommitByCrawling(user.userName,function(result){
-      // user.school에 따라 해당하는 school에 result.totalommit을 더해주기.
+    getCommitByCrawling(user["userName"],function(result){
+      // user["school"]에 따라 해당하는 school에 result["totalommit"]을 더해주기.
     })
   }
 }
@@ -42,17 +43,15 @@ db.once('open', function(){
 // 실제로 연결되는 곳.
 mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, function(err){
     if(err) {
-        console.log('Unable to connect to the mongoDB server.error', err);
+      console.log('Unable to connect to the mongoDB server.error', err);
     }
     else {
-        // 서버를 시작하는 부분
-        app.listen(port, ()=>{
+      // 서버를 시작하는 부분
+      app.listen(port, ()=>{
         console.log(`Listening on port ${port}`)
 
         var interval = 1000 * 60 * 60;
-        if(updateUsers == undefined) print("updateUsers is undefined");
-        else if(getAllUsers == undefined) print("getAllUsers is undefined");
-        else setInterval(updateUsers(getAllUsers()),interval);
-})
+        setInterval(updateUsers(getAllUsers()),interval);
+      })
     }
 });
