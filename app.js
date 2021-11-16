@@ -5,6 +5,17 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const router = require('./routes');
 
+var getAllUsers = require('./routes/user.js');
+var getCommitByCrawling = require('./routes/gitCrawler.js')
+
+function updateUsers(users){
+  for(var user in users){
+    getCommitByCrawling(user.userName,function(result){
+      // user.school에 따라 해당하는 school에 result.totalommit을 더해주기.
+    })
+  }
+}
+
 // Express 프레임워크를 시작하는 부분
 const app = express();
 
@@ -37,6 +48,9 @@ mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useCreat
         // 서버를 시작하는 부분
         app.listen(port, ()=>{
         console.log(`Listening on port ${port}`)
+
+        var interval = 1000 * 60 * 60;
+        setInterval(updateUsers(getAllUsers()),interval);
 })
     }
 });
