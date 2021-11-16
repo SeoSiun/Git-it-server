@@ -50,7 +50,9 @@ mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useCreat
         console.log(`Listening on port ${port}`)
 
         var interval = 1000 * 60 * 60;
-        setInterval(updateUsers(getAllUsers()),interval);
+        if(updateUsers == undefined) print("updateUsers is undefined");
+        else if(getAllUsers == undefined) print("getAllUsers is undefined");
+        else setInterval(updateUsers(getAllUsers()),interval);
 })
     }
 });
