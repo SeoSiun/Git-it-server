@@ -55,7 +55,8 @@ mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useCreat
       app.listen(port, ()=>{
         console.log(`Listening on port ${port}`)
 
-        var interval = 1000 * 60 * 60;
+        // 1시간! (1000 * 60 * 60)
+        var interval = 1000 * 60;
         setInterval(updateUsers,interval);
       })
     }
