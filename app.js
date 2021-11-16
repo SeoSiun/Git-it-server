@@ -12,14 +12,12 @@ const User = require('./models/user.js');
 function updateUsers(){
   console.log("call updateUsers()");
   User.find({},(err, users) =>{
-    console.log("??");
     if(err){
       console.log("err")
     }
     else{
       console.log("user 목록 가져오기 성공!")
       users.forEach(function(user, index, _users){
-        console.log(user["userName"]);
         getCommitByCrawling(user["userName"],function(result){
           // user["school"]에 따라 해당하는 school에 result["totalommit"]을 더해주기.
         })
