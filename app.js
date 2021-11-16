@@ -8,21 +8,18 @@ const router = require('./routes');
 var getCommitByCrawling = require('./routes/gitCrawler.js')
 const User = require('./models/user.js');
 
-// get all users
-function getAllUsers() {
+// update all users
+function updateUsers(){
   User.find({},(err, users) =>{
     if(err) return null;
-    else return users;
+    else{
+      for(var user in users){
+        getCommitByCrawling(user["userName"],function(result){
+          // user["school"]에 따라 해당하는 school에 result["totalommit"]을 더해주기.
+        })
+      }
+    }
   })
-}
-
-// update all users
-function updateUsers(users){
-  for(var user in users){
-    getCommitByCrawling(user["userName"],function(result){
-      // user["school"]에 따라 해당하는 school에 result["totalommit"]을 더해주기.
-    })
-  }
 }
 
 // Express 프레임워크를 시작하는 부분
@@ -59,7 +56,7 @@ mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useCreat
         console.log(`Listening on port ${port}`)
 
         var interval = 1000 * 60 * 60;
-        setInterval(updateUsers(getAllUsers()),interval);
+        setInterval(updateUsers,interval);
       })
     }
 });
