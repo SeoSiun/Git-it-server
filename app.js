@@ -18,6 +18,7 @@ function updateUsers(){
     }
     else{
       console.log("user 목록 가져오기 성공!")
+      console.log(users);
       for(var user in users){
         console.log(user["userName"]);
         getCommitByCrawling(user["userName"],function(result){
