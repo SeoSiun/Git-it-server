@@ -78,6 +78,8 @@ router.get('/rank/:userName', (req, res) => {
         if(err) res.status(200).json({"validation": 0});      // db failed 
         if(!users) res.status(200).json({"validation": 2});   // no user  
         else{
+          console.log(users);
+          console.log(user);
           rank = users.indexOf(user) + 1;
           return res.status(200).json({
             validation: 1,
