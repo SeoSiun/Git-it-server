@@ -88,7 +88,7 @@ router.get('/rank/:userName', (req, res) => {
             totalUserCnt: users.length
           })
         //}
-      })
+   //   })
     }
   })
 })
