@@ -73,22 +73,13 @@ router.get('/rank/:userName', (req, res) => {
     if(err) res.status(200).json({"validation": 0});      // db failed 
     if(!users) res.status(200).json({"validation": 2});   // no user  
     else {
-      //const filter = {userName: req.params.userName};
-      //User.findOne(filter).exec((err, user) => {
-       // if(err) res.status(200).json({"validation": 0});      // db failed 
-       // if(!users) res.status(200).json({"validation": 2});   // no user  
-       // else{
-          console.log(users);
-        //  console.log(user);
-       //   rank = users.indexOf(user) + 1;
-          rank = users.findIndex(x => x.userName === req.params.userName);
-          return res.status(200).json({
-            validation: 1,
-            rank: rank,
-            totalUserCnt: users.length
-          })
-        //}
-   //   })
+      // userName이 일치하는 유저의 index 찾기
+      rank = users.findIndex(x => x.userName === req.params.userName) + 1;
+      return res.status(200).json({
+        validation: 1,
+        rank: rank,
+        totalUserCnt: users.length
+      })
     }
   })
 })
