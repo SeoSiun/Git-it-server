@@ -85,6 +85,8 @@ function getCommitByCrawling(userName, callback) {
           commitsRecord: crawledCommits,
           totalCommits: totalCommit
         }
+
+        console.log(userName + " crawled!!");
         callback(result); 
       }
     } 

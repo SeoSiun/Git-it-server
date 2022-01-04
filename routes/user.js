@@ -6,6 +6,14 @@ var app = express();
 
 const User = require('../models/user.js');
 
+// // get all users
+// function getAllUsers() {
+//   User.find({},(err, users) =>{
+//     if(err) return null;
+//     else return users;
+//   })
+// }
+
 // get a user by userName
 router.get('/:userName', (req, res) => {
   const filter = {userName: req.params.userName};
