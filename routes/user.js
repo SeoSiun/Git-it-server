@@ -50,8 +50,8 @@ router.get('/github/:userName', (req, res) => {
 router.get('/stats/:userName', (req, res) => {
   const filter = {userName: req.params.userName};
   User.findOne(filter).exec((err, stats) => {
-    if(err) res.status(500).json({"validation": 0});      // db failed -> db가 아예 터지거나 쿼리가 잘못되었을 때
-    if(!stats) res.status(404).json({"validation": 2});   // no user  -> db에 저장된 유저정보가 없는 이름일 때
+    if(err) res.status(200).json({"validation": 0});      // db failed -> db가 아예 터지거나 쿼리가 잘못되었을 때
+    if(!stats) res.status(200).json({"validation": 2});   // no user  -> db에 저장된 유저정보가 없는 이름일 때
     else {
       console.log('get stats by user name 성공');
       return res.status(200).json({
@@ -62,6 +62,24 @@ router.get('/stats/:userName', (req, res) => {
         totalCommits: stats["totalCommits"]
         // rank: stats["rank"]          학교 랭크인데 api list에 없음 한다는겨 만다는겨
       });
+    }
+  })
+})
+
+// get stats by userName
+router.get('/rank/:userName', (req, res) => {
+  // 전체 유저를 totalCommit을 기준으로 내림차순으로 정렬
+  User.find().sort({totalCommits: -1}).exec((err,users) => {
+    if(err) res.status(200).json({"validation": 0});      // db failed 
+    if(!users) res.status(200).json({"validation": 2});   // no user  
+    else {
+      // userName이 일치하는 유저의 index 찾기
+      rank = users.findIndex(x => x.userName === req.params.userName) + 1;
+      return res.status(200).json({
+        validation: 1,
+        rank: rank,
+        totalUserCnt: users.length
+      })
     }
   })
 })
