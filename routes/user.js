@@ -69,10 +69,11 @@ router.get('/stats/:userName', (req, res) => {
 // get stats by userName
 router.get('/rank/:userName', (req, res) => {
   // 전체 유저를 totalCommit을 기준으로 내림차순으로 정렬
-  User.find.sort({totalCommits: -1}).exec((err,users) => {
+  User.find({},(err, users) =>{
     if(err) res.status(200).json({"validation": 0});      // db failed 
     if(!users) res.status(200).json({"validation": 2});   // no user  
-    else {
+    else{
+      users = users.sort({totalCommits: -1})
       const filter = {userName: req.params.userName};
       User.findOne(filter).exec((err, user) => {
         if(err) res.status(200).json({"validation": 0});      // db failed 
@@ -84,7 +85,7 @@ router.get('/rank/:userName', (req, res) => {
             rank: rank,
             totalUserCnt: users.length
           })
-        }
+        } 
       })
     }
   })
